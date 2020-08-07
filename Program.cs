@@ -7,6 +7,9 @@ namespace Pokecrit
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            //F
+            
         }
     }
 }

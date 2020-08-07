@@ -8,13 +8,13 @@ namespace Pokecrit
     {
         // para que en algun momento el jugador pueda tener mas de 3 criaturas
         int maxCritters = 3;
-        public List<Critter> crittersOwned = new List<Critter>(); 
+        public List<Critter> crittersOwned = new List<Critter>();
 
 
 
 
 
-        void LoseCreatures(Player enemy, Critter critterLose)
+        public void LoseCreatures( Critter critterLose)
         {
             crittersOwned.Remove(critterLose);
         }

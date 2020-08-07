@@ -14,7 +14,7 @@ namespace Pokecrit
         private string critName = "";
         private afinity afinityType;
         public Critter target;
-        public List<Skill> Skills = new List<Skill>();
+        private List<Skill> Skills = new List<Skill>();
 
 
 
@@ -83,6 +83,10 @@ namespace Pokecrit
         public void GetDmg(double dmg)
         {
             hpActual -= dmg;
+            if (hpActual <= 0)
+            {
+                owner.LoseCreatures(this);
+            }
         }
 
         
