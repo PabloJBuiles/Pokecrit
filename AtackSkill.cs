@@ -20,7 +20,7 @@ namespace Pokecrit
             if (uses <= 3)
             {            
             double affinityDmg = Affinity.CalculateAffinity(mCritter.AfinityType, enemy.AfinityType);
-            enemy.GetDmg((dmgActual + skillPower) * affinityDmg);
+            enemy.GetDmg((dmgActual + skillPower) * affinityDmg, mCritter.owner);
             base.UseSkill();
             }
         }

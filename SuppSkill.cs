@@ -6,13 +6,15 @@ namespace Pokecrit
 {
     class SuppSkill: Skill
     {
-        public SuppSkill(string nombre)
+        esSkill sSkill;
+        public SuppSkill(string nombre, esSkill sSkill)
         {            
             base.afinity = afinity.Dark;
             base.nombre = nombre;
+            this.sSkill = sSkill;
         }
 
-        public void UseSkill(Critter mCritter, double @base, Enum sSkill)
+        public void UseSkill(Critter mCritter, double AtkUpB, double DefUpB, double SpdDwnB)
         {
             if (uses <= 3)
             {
@@ -20,13 +22,13 @@ namespace Pokecrit
                 switch (sSkill)
                 {
                     case esSkill.AtkUp:
-                        mCritter.DmgActual = @base + @base * 0.2;
+                        mCritter.DmgActual = AtkUpB + AtkUpB * 0.2;
                         break;
                     case esSkill.DefUp:
-                        mCritter.DefActual = @base + @base * 0.2;
+                        mCritter.DefActual = DefUpB + DefUpB * 0.2;
                         break;
                     case esSkill.SpdDwn:
-                        mCritter.SpeedActual = @base + @base * 0.3;
+                        mCritter.SpeedActual = SpdDwnB + SpdDwnB * 0.3;
                         break;
                     default:
                         break;

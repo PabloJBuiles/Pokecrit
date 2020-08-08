@@ -6,21 +6,21 @@ namespace Pokecrit
 {
     class Critter
     {
-        private Player owner;
+        public Player owner;
+        private string critName = "";
         private double hpBase, hpActual;
         private double dmgBase, dmgActual;
         private double speedBase, speedActual;
         private double defBase, defActual;
-        private string critName = "";
         private afinity afinityType;
         public Critter target;
-        private List<Skill> Skills = new List<Skill>();
+        private List<Skill> Moveset = new List<Skill>();
 
 
 
-        public Critter(Player owner, double hpBase, double dmgBase, double speedBase, double defBase, string critName, afinity afinityType)
+        public Critter(double hpBase, double dmgBase, double speedBase, double defBase, string critName, afinity afinityType, List<Skill> Moveset)
         {
-            this.owner = owner;
+         
             //Verificar el daño entr 10 y 100
             if (dmgBase > 100)
             {
@@ -36,12 +36,10 @@ namespace Pokecrit
             if (defBase > 100)
             {
                 this.defBase = 100;
-            }
-            else if (defBase < 10)
+            }else if (defBase < 10)
             {
                 this.defBase = 10;
-            }
-            else
+            }else
             {
                 this.defBase = defBase;
             }
@@ -49,19 +47,14 @@ namespace Pokecrit
             if (speedBase > 50)
             {
                 this.speedBase = 50;
-            }
-            else if (speedBase < 1)
+            }else if (speedBase < 1)
             {
                 this.speedBase = 1;
-            }
-            else
+            }else
             {
                 this.speedBase = speedBase;
             }
 
-
-
-          
             this.hpBase = hpBase;
             this.critName = critName;
             this.afinityType = afinityType;
@@ -70,7 +63,7 @@ namespace Pokecrit
             dmgActual = this.dmgBase;
             defActual = this.defBase;
 
-
+            this.Moveset = Moveset;
 
         }
 
@@ -79,17 +72,36 @@ namespace Pokecrit
         public double DmgActual { set => dmgActual = value; }
         public double DefActual { set => defActual = value; }
         public double DmgBase {set => dmgBase = value; }
+        internal List<Skill> Moveset1 { get => Moveset;}
 
-        public void GetDmg(double dmg)
+        public void GetDmg(double dmg, Player enemytrainer)
         {
             hpActual -= dmg;
             if (hpActual <= 0)
             {
                 owner.LoseCreatures(this);
+                enemytrainer.AddCreatures(this);
             }
         }
+        public void Atack(Critter enemyCritter, AtackSkill atackSkill)
+        {
+            atackSkill.UseSkill(this, enemyCritter, dmgActual);
+        }
+        public void Buff(SuppSkill suppSkill)
+        {
+            suppSkill.UseSkill(this, dmgBase, defBase, speedBase);
+        }
 
-        
+        public string GetCritterData()
+        {
+            string data = 
+                "VidaAcutal " + hpActual + " Vida Maxima " + hpBase + " daño base " + dmgBase + " daño actual " + dmgActual + " defensa base " + defBase + 
+                " defensa actual " + defActual + " velocidad base " + speedBase + " Velocidad actual " + speedActual + " Afinidad " + afinityType
+                ;
 
+
+
+            return data;
+        }
     }
 }

@@ -10,9 +10,10 @@ namespace Pokecrit
         int maxCritters = 3;
         public List<Critter> crittersOwned = new List<Critter>();
 
-
-
-
+        public Player(List<Critter> crittersOwned)
+        {
+            this.crittersOwned = crittersOwned;
+        }
 
         public void LoseCreatures( Critter critterLose)
         {
@@ -27,9 +28,29 @@ namespace Pokecrit
             }
         }
 
-        void Attack()
+        public void Attack(Critter critter, Critter enemyCritter, int skill)
         {
+            if (crittersOwned.Count != 0 && critter != null && enemyCritter != null && critter.Moveset1.Count >= skill && critter.Moveset1[skill] is AtackSkill)
+            {
+                critter.Atack(enemyCritter, critter.Moveset1[skill] as AtackSkill);
+            }else
+            {
+                //no puede atacar
+            }
 
+        }
+
+       public void Buff(Critter critter, int skill)
+        {
+            if (crittersOwned.Count != 0 && critter != null && critter.Moveset1.Count >= skill && critter.Moveset1[skill] is SuppSkill)
+            {
+
+                critter.Buff(critter.Moveset1[skill] as SuppSkill);
+            }
+            else
+            {
+                //no puede atacar
+            }
         }
 
     }
